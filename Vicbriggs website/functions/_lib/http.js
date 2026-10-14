@@ -1,0 +1,9 @@
+export const json=(value,status=200)=>new Response(JSON.stringify(value),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store','x-content-type-options':'nosniff'}});
+export const fail=(message,status=400)=>json({error:message},status);
+export function db(env){if(!env.DB)throw new Error('Missing D1 binding DB');return env.DB}
+export function cloud(env){if(!env.CLOUDINARY_CLOUD_NAME||!env.CLOUDINARY_API_KEY||!env.CLOUDINARY_API_SECRET)throw new Error('Missing Cloudinary configuration')}
+export async function sha1(s){const hash=await crypto.subtle.digest('SHA-1',new TextEncoder().encode(s));return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('')}
+export function safeUrl(url,env){try{const u=new URL(url);return u.protocol==='https:'&&u.hostname==='res.cloudinary.com'&&u.pathname.startsWith('/'+env.CLOUDINARY_CLOUD_NAME+'/')}catch{return false}}
+export async function cloudSignature(params,secret){const canonical=Object.keys(params).filter(k=>params[k]!==undefined&&params[k]!==null&&params[k]!=='').sort().map(k=>`${k}=${params[k]}`).join('&');return sha1(canonical+secret)}
+export async function verifyAsset(env,publicId,resourceType){cloud(env);const path=`/v1_1/${encodeURIComponent(env.CLOUDINARY_CLOUD_NAME)}/resources/${resourceType}/upload/${publicId.split('/').map(encodeURIComponent).join('/')}`;const auth=btoa(`${env.CLOUDINARY_API_KEY}:${env.CLOUDINARY_API_SECRET}`);const r=await fetch(`https://api.cloudinary.com${path}`,{headers:{authorization:`Basic ${auth}`}});if(!r.ok)throw new Error('Cloudinary asset verification failed');const asset=await r.json();if(asset.public_id!==publicId||asset.resource_type!==resourceType||!safeUrl(asset.secure_url,env))throw new Error('Invalid Cloudinary asset');return asset}
+export function handleError(err){console.error(err);return fail('Request could not be completed. Check service configuration.',500)}

@@ -48,7 +48,7 @@ window.VIC_GALLERY = [
     "type": "image"
   },
   {
-    "src": "assets/images/facility.jpg",
+    "src": "assets/images/facility.jpeg",
     "title": "Industrial facility works",
     "category": "Mechanical",
     "type": "image"
