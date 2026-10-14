@@ -21,28 +21,22 @@ Under Cloudflare Pages → Settings → Variables and Secrets, configure:
 - `CLOUDINARY_API_SECRET` = Cloudinary API secret (**encrypted secret**)
 Never put the secret in HTML or frontend JavaScript. No unsigned upload preset is needed.
 
-## 4. Cloudflare Access (MANDATORY)
-Protect both `vicbriggs.pages.dev/admin/*` and `vicbriggs.pages.dev/api/admin/*` using a Cloudflare Access self-hosted application and a policy allowing **only the IT Admin's email**.
-Cloudflare Access availability and route configuration for a `pages.dev` hostname can differ from custom-domain configurations; if Access cannot cover both routes on `pages.dev`, configure a custom hostname and protect those routes there **before enabling uploads**. Do not rely on the dashboard's appearance for security.
-Add Pages environment variables:
-- `ACCESS_TEAM_DOMAIN` = your team's Access domain, e.g. `example.cloudflareaccess.com`
-- `ACCESS_AUD` = Access application's Application Audience (AUD) tag
-- `ADMIN_EMAIL` = exact permitted IT Admin email
-Every admin API request independently verifies the Access JWT signature, issuer, audience, expiration and approved email. The login happens via Cloudflare Access, not a password stored in this site.
+## 4. Email/password authentication (no Cloudflare Access)
+See **CMS_AUTH_SETUP.md** for the new migration, bootstrap secret, and first login instructions. Cloudflare Access is no longer used.
 
 ## 5. Cloudinary allowed origins
 Cloudinary's signed upload endpoint is called directly by the browser. Ensure the account's upload settings allow browser-origin uploads from your deployed domain. Check upload size limits and account quotas, especially for videos. This sample uses normal single-request uploads, not chunked upload; large videos may need a future chunked-upload implementation.
 
 ## 6. Smoke tests
 1. Visit `/api/gallery` — expect `{ "items": [] }` initially.
-2. Visit `/admin/` as an unauthorized user — Access should block it; `/api/admin/me` must return HTTP 401 without a valid token.
-3. Authenticate as the IT Admin; `/api/admin/me` should show the approved email.
+2. Visit `/admin/` as an unauthorized user — the login form appears; `/api/admin/me` returns HTTP 401 without a session.
+3. Log in as the IT Admin; `/api/admin/me` should show the approved email.
 4. Upload one small JPG. It appears as **draft** in the dashboard, not on the public gallery.
 5. Publish it; reload `/gallery.html` and verify it appears.
 6. Edit the title, unpublish, and remove to test CRUD.
 
 ## Notes
-- Public gallery intentionally retains existing static entries as a fallback. Two missing image references in the original static data (`leadership.jpg`, `facility.jpeg`) are replaced with a local fallback image in the viewer.
+- Public gallery intentionally retains existing static entries as a fallback. Two missing image references in the original static data (`leadership.jpg`, `facility.jpg`) are replaced with a local fallback image in the viewer.
 - For a complete migration to CMS-only gallery, first upload the original static files to Cloudinary and publish them, then remove the `gallery-data.js` include.
 - Deletion is soft-delete in D1, not permanent Cloudinary deletion.
 - For operational use, add upload rate limits, Cloudinary quota monitoring, audit logs, and a more comprehensive upload policy.

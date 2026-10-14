@@ -48,13 +48,13 @@ window.VIC_GALLERY = [
     "type": "image"
   },
   {
-    "src": "assets/images/facility.jpeg",
+    "src": "assets/images/facility.jpg",
     "title": "Industrial facility works",
     "category": "Mechanical",
     "type": "image"
   },
   {
-    "src": "assets/images/marine.jpg",
+    "src": "assets/images/marine/marine1.jpg",
     "title": "Marine and flowline support",
     "category": "Marine",
     "type": "image"
