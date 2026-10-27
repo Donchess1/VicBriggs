@@ -1,6 +1,6 @@
 import {db,fail} from './http.js';
 const enc=new TextEncoder();
-const ITERATIONS=310000, SESSION_SECONDS=8*60*60;
+const ITERATIONS=10000, SESSION_SECONDS=8*60*60;
 function b64(bytes){let s='';for(const b of bytes)s+=String.fromCharCode(b);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
 function unb64(s){const raw=atob(s.replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(raw,c=>c.charCodeAt(0))}
 function random(n){const b=new Uint8Array(n);crypto.getRandomValues(b);return b64(b)}
