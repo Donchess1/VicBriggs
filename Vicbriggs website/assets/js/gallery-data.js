@@ -73,19 +73,19 @@ window.VIC_GALLERY = [
   },
   {
     "src": "assets/videos/site-operations.mp4",
-    "title": "Vicbriggs site operations",
+    // "title": "Vicbriggs site operations",
     "category": "Video",
     "type": "video"
   },
   {
     "src": "assets/videos/work-on-site.mp4",
-    "title": "Vicbriggs site operations",
+    // "title": "Vicbriggs site operations",
     "category": "Video",
     "type": "video"
   },
   {
     "src": "assets/videos/roller.mp4",
-    "title": "Vicbriggs site operations",
+    // "title": "Vicbriggs site operations",
     "category": "Video",
     "type": "video"
   }
