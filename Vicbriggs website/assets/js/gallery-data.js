@@ -18,7 +18,7 @@ window.VIC_GALLERY = [
     "type": "image"
   },
   {
-    "src": "assets/images/excavation.jpg",
+    "src": "assets/images/excavation.jpeg",
     "title": "Infrastructure development",
     "category": "Civil",
     "type": "image"
