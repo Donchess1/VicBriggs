@@ -66,7 +66,7 @@ window.VIC_GALLERY = [
     "type": "image"
   },
   {
-    "src": "assets/images/lift.jpg",
+    "src": "assets/images/lift.jpeg",
     "title": "Heavy lifting operations",
     "category": "Mechanical",
     "type": "image"
