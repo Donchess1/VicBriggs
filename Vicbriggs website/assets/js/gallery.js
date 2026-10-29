@@ -86,13 +86,25 @@
     // --------------------------------------------------
 
     function renderFilters() {
+        const defaultCategories = [
+            "People",
+            "Civil",
+            "Fabrication",
+            "Mechanical",
+            "Marine",
+            "Video"
+        ];
+
+        const uploadedCategories = items
+            .map(item => item.category)
+            .filter(Boolean);
+
         const categories = [
             "All",
-            ...new Set(
-                items
-                    .map(item => item.category)
-                    .filter(Boolean)
-            )
+            ...new Set([
+                ...defaultCategories,
+                ...uploadedCategories
+            ])
         ];
 
         filters.replaceChildren();
