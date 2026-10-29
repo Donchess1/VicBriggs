@@ -36,7 +36,7 @@ Cloudinary's signed upload endpoint is called directly by the browser. Ensure th
 6. Edit the title, unpublish, and remove to test CRUD.
 
 ## Notes
-- Public gallery intentionally retains existing static entries as a fallback. Two missing image references in the original static data (`leadership.jpg`, `facility.jpg`) are replaced with a local fallback image in the viewer.
+- Public gallery intentionally retains existing static entries as a fallback. Two missing image references in the original static data (`leadership.jpg`, `facility.jpeg`) are replaced with a local fallback image in the viewer.
 - For a complete migration to CMS-only gallery, first upload the original static files to Cloudinary and publish them, then remove the `gallery-data.js` include.
 - Deletion is soft-delete in D1, not permanent Cloudinary deletion.
 - For operational use, add upload rate limits, Cloudinary quota monitoring, audit logs, and a more comprehensive upload policy.
