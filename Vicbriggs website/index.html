@@ -2,71 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Site Editor | Vicbriggs</title>
-  <link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
 </head>
 <body>
-<header><div><b>VICBRIGGS</b> <span>Site Editor</span></div><a href="/gallery.html">View public gallery ↗</a></header>
-<main>
-  <section id="login-panel" class="panel">
-    <h1>IT Admin sign in</h1>
-    <form id="login-form">
-      <label>Email<input type="email" name="email" autocomplete="username" required></label>
-      <label>Password<input type="password" name="password" autocomplete="current-password" required></label>
-      <button type="submit">Sign in</button>
-      <p id="login-status" role="status"></p>
-    </form>
-  </section>
-  <div id="editor" hidden>
-    <section class="intro">
-      <p class="eyebrow">MEDIA MANAGEMENT</p>
-      <h1>Manage the Vicbriggs gallery</h1>
-      <p>Upload, review and publish project photographs and videos. Only published media appears on the public website.</p>
-      <p id="who" role="status"></p>
-      <button id="logout" type="button" class="secondary">Sign out</button>
-    </section>
-    <section class="panel">
-      <h2>Upload media</h2>
-      <form id="upload-form">
-        <div class="fields">
-          <label>Title (optional for single upload)
-            <input name="title" maxlength="150" placeholder="Leave blank to use the filename">
-          </label>
-          <label>Category
-            <select name="category">
-              <option>Projects</option><option>People</option><option>Civil</option>
-              <option>Fabrication</option><option>Mechanical</option><option>Marine</option><option>Video</option>
-            </select>
-          </label>
-        </div>
-        <label>Description (shared by selected files)
-          <textarea name="description" maxlength="1000" rows="2" placeholder="Optional context for this batch"></textarea>
+  <header>
+    <div><b>VICBRIGGS</b> <span>Site Editor</span></div>
+    <a href="/gallery.html">View public gallery ↗</a>
+  </header>
+
+  <main>
+    <section id="login-panel" class="panel">
+      <h1>IT Admin sign in</h1>
+      <form id="login-form">
+        <label>Email
+          <input type="email" name="email" autocomplete="username" required>
         </label>
-        <label>Images or videos
-          <input id="files" name="files" type="file" accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm" multiple required>
+        <label>Password
+          <input type="password" name="password" autocomplete="current-password" required>
         </label>
-        <p id="file-count" class="hint">No files selected.</p>
-        <p class="hint">Choose multiple files using Ctrl or Shift. Every file gets its own title. All files use the category and description selected above. Uploads are saved as drafts.</p>
-        <button type="submit" id="upload-button">Upload selected media as drafts</button>
-        <progress id="upload-progress" value="0" max="1" hidden></progress>
-        <p id="upload-status" role="status" aria-live="polite"></p>
-        <div id="upload-results" aria-live="polite"></div>
+        <button type="submit">Sign in</button>
+        <p id="login-status" role="status"></p>
       </form>
     </section>
-    <section class="panel">
-      <div class="heading"><h2>Media library</h2><button id="refresh" type="button" class="secondary">Refresh</button></div>
-      <div class="bulk-toolbar">
-        <label class="checkline"><input id="select-all-media" type="checkbox"> Select all displayed media</label>
-        <span id="selection-count">0 selected</span>
-        <button id="publish-selected" type="button" disabled>Publish selected</button>
-        <button id="unpublish-selected" type="button" class="secondary" disabled>Unpublish selected</button>
-      </div>
-      <p id="bulk-status" role="status" aria-live="polite"></p>
-      <div id="library" class="library"></div>
-    </section>
-  </div>
-</main>
-<script src="/assets/js/admin.js"></script>
+
+    <div id="editor" hidden>
+      <section class="intro">
+        <p class="eyebrow">MEDIA MANAGEMENT</p>
+        <h1>Manage the Vicbriggs gallery</h1>
+        <p>Upload, review and publish project photographs and videos. Only published media appears on the public website.</p>
+        <p id="who" role="status"></p>
+        <button id="logout" type="button" class="secondary">Sign out</button>
+      </section>
+
+      <section class="panel">
+        <h2>Add new media</h2>
+        <form id="upload-form">
+          <div class="fields">
+            <label>Title (optional for multiple files)
+              <input name="title" maxlength="150" placeholder="For one file, enter a custom title">
+            </label>
+            <label>Category
+              <select name="category">
+                <option>Projects</option>
+                <option>People</option>
+                <option>Civil</option>
+                <option>Fabrication</option>
+                <option>Mechanical</option>
+                <option>Marine</option>
+                <option>Video</option>
+              </select>
+            </label>
+          </div>
+
+          <label>Description
+            <textarea name="description" maxlength="1000" rows="2" placeholder="Optional context shared by selected files"></textarea>
+          </label>
+
+          <label>Images or videos
+            <input id="files" name="files" type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm"
+              multiple required>
+          </label>
+          <p id="file-count" class="hint">No files selected.</p>
+          <p class="hint">Choose several files under one category. Each file is saved as a separate draft with its own title.</p>
+
+          <button id="upload-button" type="submit">Upload selected media</button>
+          <progress id="upload-progress" value="0" max="100" style="width:100%; margin-top:12px;" hidden></progress>
+          <p id="upload-status" role="status"></p>
+          <div id="upload-results" aria-live="polite"></div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="heading">
+          <h2>Media library</h2>
+          <button id="refresh" type="button" class="secondary">Refresh</button>
+        </div>
+        <div class="bulk-toolbar">
+          <label class="checkline">
+            <input id="select-all-media" type="checkbox">
+            Select all media
+          </label>
+          <span id="selection-count">0 selected</span>
+          <button id="publish-selected" type="button" disabled>Publish selected</button>
+          <button id="unpublish-selected" type="button" class="secondary" disabled>Unpublish selected</button>
+        </div>
+        <p id="bulk-status" role="status"></p>
+        <div id="library" class="library"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/assets/js/admin.js"></script>
 </body>
 </html>
