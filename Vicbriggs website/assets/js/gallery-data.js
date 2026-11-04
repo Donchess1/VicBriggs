@@ -12,7 +12,7 @@ window.VIC_GALLERY = [
     "type": "image"
   },
   {
-    "src": "assets/images/civil.png",
+    "src": "assets/images/civil.jpg",
     "title": "Civil construction works",
     "category": "Civil",
     "type": "image"
