@@ -1,0 +1,23 @@
+
+/* Service detail page */
+.service-hero{min-height:390px;display:flex;align-items:center;color:#fff;background:linear-gradient(100deg,rgba(7,26,57,.96),rgba(7,26,57,.62)),url('../images/civil.jpg') center/cover}
+.service-hero-content{padding-top:72px;padding-bottom:72px}
+.service-hero h1{font-size:clamp(2.5rem,5vw,4.5rem);max-width:850px;margin:14px 0}
+.service-hero p{max-width:700px;color:#e0e9f4;font-size:1.08rem}
+.service-back{display:inline-block;color:#fff;font-weight:700;margin-bottom:30px}
+.service-back:hover{color:var(--gold)}
+.service-intro{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:start}
+.service-intro h2{font-size:clamp(2rem,3.4vw,2.8rem);margin:12px 0}
+.service-copy p{color:var(--muted);margin:0 0 16px}
+.capability-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.capability-card{background:#fff;border:1px solid var(--line);border-radius:9px;padding:25px 22px;min-height:205px}
+.capability-number{display:inline-block;color:#b78019;font-weight:800;letter-spacing:.12em;font-size:.78rem}
+.capability-card h3{font-size:1.12rem;margin:18px 0 10px}
+.capability-card p{color:var(--muted);font-size:.9rem;margin:0}
+.service-media-status{color:var(--muted);padding:12px 0}
+.service-media-grid:empty{display:none}
+.service-media-grid .gallery-item{min-height:230px}
+.service-media-grid .gallery-item img{height:250px}
+.service-media-grid .service-empty{grid-column:1/-1;color:var(--muted);padding:18px 0}
+@media(max-width:900px){.capability-grid{grid-template-columns:repeat(2,1fr)}.service-intro{gap:30px}}
+@media(max-width:650px){.service-hero{min-height:350px}.service-hero-content{padding-top:55px;padding-bottom:55px}.service-intro{grid-template-columns:1fr;gap:12px}.capability-grid{grid-template-columns:1fr}.capability-card{min-height:0}}
