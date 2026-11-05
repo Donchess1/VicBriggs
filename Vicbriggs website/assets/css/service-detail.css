@@ -21,3 +21,10 @@
 .service-media-grid .service-empty{grid-column:1/-1;color:var(--muted);padding:18px 0}
 @media(max-width:900px){.capability-grid{grid-template-columns:repeat(2,1fr)}.service-intro{gap:30px}}
 @media(max-width:650px){.service-hero{min-height:350px}.service-hero-content{padding-top:55px;padding-bottom:55px}.service-intro{grid-template-columns:1fr;gap:12px}.capability-grid{grid-template-columns:1fr}.capability-card{min-height:0}}
+
+/* Service-specific hero images */
+.mechanical-electrical-hero{background-image:linear-gradient(100deg,rgba(7,26,57,.96),rgba(7,26,57,.62)),url("../images/mechanical.jpeg")}
+.pipeline-flowline-hero{background-image:linear-gradient(100deg,rgba(7,26,57,.96),rgba(7,26,57,.62)),url("../images/welding.jpg")}
+.welding-fabrication-hero{background-image:linear-gradient(100deg,rgba(7,26,57,.96),rgba(7,26,57,.62)),url("../images/fabrication.jpg")}
+.facility-maintenance-hero{background-image:linear-gradient(100deg,rgba(7,26,57,.96),rgba(7,26,57,.62)),url("../images/facility.jpeg")}
+.marine-project-support-hero{background-image:linear-gradient(100deg,rgba(7,26,57,.96),rgba(7,26,57,.62)),url("../images/marine.jpg")}
