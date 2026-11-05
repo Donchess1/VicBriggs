@@ -116,7 +116,10 @@
       caption.textContent = item.title || "Vicbriggs project media";
 
       const category = document.createElement("small");
-      category.textContent = item.type === "video" ? "Civil • ▶ Watch video" : "Civil";
+      const categoryLabel = item.category || serviceName;
+      category.textContent = item.type === "video"
+        ? `${categoryLabel} • ▶ Watch video`
+        : categoryLabel;
       caption.appendChild(category);
 
       button.append(image, caption);
