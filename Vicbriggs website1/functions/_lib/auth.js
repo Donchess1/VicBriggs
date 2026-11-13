@@ -1,0 +1,20 @@
+import {db,fail} from './http.js';
+const enc=new TextEncoder();
+const ITERATIONS=10000, SESSION_SECONDS=8*60*60;
+function b64(bytes){let s='';for(const b of bytes)s+=String.fromCharCode(b);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function unb64(s){const raw=atob(s.replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(raw,c=>c.charCodeAt(0))}
+function random(n){const b=new Uint8Array(n);crypto.getRandomValues(b);return b64(b)}
+async function digest(value){const h=await crypto.subtle.digest('SHA-256',enc.encode(value));return b64(new Uint8Array(h))}
+async function passwordBytes(password,salt,iterations){const k=await crypto.subtle.importKey('raw',enc.encode(password),'PBKDF2',false,['deriveBits']);return new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2',salt:unb64(salt),iterations,hash:'SHA-256'},k,256))}
+export async function makePassword(password){const salt=random(16);return {password_hash:b64(await passwordBytes(password,salt,ITERATIONS)),password_salt:salt,iterations:ITERATIONS}}
+export async function checkPassword(password,admin){const got=await passwordBytes(password,admin.password_salt,admin.iterations);const expected=unb64(admin.password_hash);if(got.length!==expected.length)return false;let diff=0;for(let i=0;i<got.length;i++)diff|=got[i]^expected[i];return diff===0}
+export function sameOrigin(request){try{const origin=request.headers.get('Origin');return !!origin&&new URL(origin).origin===new URL(request.url).origin}catch{return false}}
+function cookieValue(request){const m=(request.headers.get('Cookie')||'').match(/(?:^|;\s*)viccms_session=([^;]+)/);return m?.[1]||null}
+export function sessionCookie(token,maxAge=SESSION_SECONDS){return `viccms_session=${token}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=${maxAge}`}
+export async function startSession(env,adminId){const token=random(32),now=Math.floor(Date.now()/1000);await db(env).prepare('INSERT INTO cms_sessions(token_hash,admin_id,expires_at) VALUES(?,?,?)').bind(await digest(token),adminId,now+SESSION_SECONDS).run();return sessionCookie(token)}
+export async function endSession(request,env){const token=cookieValue(request);if(token)await db(env).prepare('DELETE FROM cms_sessions WHERE token_hash=?').bind(await digest(token)).run()}
+export async function currentAdmin(request,env){const token=cookieValue(request);if(!token||!/^[A-Za-z0-9_-]{43}$/.test(token))return null;const now=Math.floor(Date.now()/1000);return await db(env).prepare('SELECT a.id,a.email FROM cms_sessions s JOIN cms_admins a ON a.id=s.admin_id WHERE s.token_hash=? AND s.expires_at>?').bind(await digest(token),now).first()}
+export async function requireAdmin(context){try{if(!await currentAdmin(context.request,context.env))return fail('Authentication required',401);if(!['GET','HEAD','OPTIONS'].includes(context.request.method)&&!sameOrigin(context.request))return fail('Invalid request origin',403);return null}catch(e){console.error('Authentication failed',e);return fail('Authentication unavailable',503)}}
+export async function loginAllowed(env,identity){const row=await db(env).prepare('SELECT * FROM cms_login_attempts WHERE identity=?').bind(identity).first();return !row||row.blocked_until<=Math.floor(Date.now()/1000)}
+export async function recordFailure(env,identity){const now=Math.floor(Date.now()/1000);const row=await db(env).prepare('SELECT * FROM cms_login_attempts WHERE identity=?').bind(identity).first();const failures=row&&now-row.window_start<900?row.failures+1:1;await db(env).prepare('INSERT INTO cms_login_attempts(identity,failures,window_start,blocked_until) VALUES(?,?,?,?) ON CONFLICT(identity) DO UPDATE SET failures=excluded.failures,window_start=excluded.window_start,blocked_until=excluded.blocked_until').bind(identity,failures,row&&now-row.window_start<900?row.window_start:now,failures>=5?now+900:0).run()}
+export async function clearFailures(env,identity){await db(env).prepare('DELETE FROM cms_login_attempts WHERE identity=?').bind(identity).run()}
