@@ -1,0 +1,22 @@
+VICBRIGGS WEBSITE UPDATE — PROJECT REGISTER
+
+Changes in this package
+1. General gallery cards do not render media category labels. Category metadata remains in D1 and is still used by the API/category filtering.
+2. Service-detail media cards no longer display category labels either.
+3. The public Projects page now renders a responsive project register with the exact four headings from the supplied schedule:
+   S/N | DESCRIPTION OF ACTIVITIES | CLIENT | PERIOD OF EXECUTION
+4. The Site Editor has a Project Register form and management list. It supports create, edit, publish/unpublish and soft-delete.
+5. New project records are saved as drafts and are not visible publicly until published.
+6. S/N is assigned automatically as the next number. Existing PDF records have NOT been imported; no OCR-ambiguous project wording has been silently changed.
+
+DEPLOYMENT
+1. Back up the current website folder and confirm it is the version you intend to deploy.
+2. Apply migrations/0004_projects.sql to the same Cloudflare D1 database already bound to the Pages project. Use the Cloudflare dashboard D1 Console or Wrangler with the correct database binding:
+   npx.cmd wrangler d1 execute <DATABASE_NAME> --remote --file=migrations/0004_projects.sql
+   Replace <DATABASE_NAME> with the actual D1 database name. Do not guess it.
+3. Deploy the website folder to the existing Cloudflare Pages project.
+4. Sign in at /admin, open Project register, create a test project, publish it, and confirm it appears at /projects.html. Then remove the test record.
+5. Do not deploy before the D1 migration has succeeded; otherwise the project API will return a database error.
+
+IMPORTANT
+The supplied PDF contains the historical 85-row project schedule. This update creates the form and display table but deliberately does not bulk-import the 85 entries. Review/clean the source records first, then import them if required. The CMS period field is free text so values such as “Ongoing”, “Completed 2022”, or “Ongoing (Call-Off)” can be preserved.
