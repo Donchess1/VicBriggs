@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Leadership Management | Vicbriggs</title>
+<link rel="stylesheet" href="/assets/css/admin.css"><link rel="stylesheet" href="/assets/css/leadership-admin.css"></head>
+<body><header><div><b>VICBRIGGS</b> <span>Leadership Management</span></div><nav><a href="/admin/">Gallery admin</a> &nbsp; <a href="/leadership">Public leadership page</a></nav></header>
+<main>
+<section id="auth-panel" class="panel" hidden><h1>Administrator sign-in required</h1><p>Please sign in through the existing admin dashboard before managing leadership profiles.</p><a href="/admin/">Go to admin login</a></section>
+<div id="manager" hidden>
+<section class="intro"><p class="eyebrow">BOARD &amp; MANAGEMENT</p><h1>Leadership profiles</h1><p>Upload portraits and manage the Board of Directors and Management Team. Profiles appear publicly only when published.</p><p id="account-status" role="status"></p></section>
+<section class="panel"><h2 id="form-heading">Add leadership profile</h2>
+<form id="profile-form">
+<div class="fields"><label>Full name <input name="name" maxlength="150" required></label><label>Designation <input name="designation" maxlength="150" required></label></div>
+<div class="fields"><label>Section <select name="group" required><option value="management">Management Team</option><option value="board">Board of Directors</option></select></label><label>Display order <input name="display_order" type="number" min="-100000" max="100000" value="0" required></label></div>
+<label>Biography (optional) <textarea name="biography" maxlength="3000" rows="4"></textarea></label>
+<label>Portrait photograph <input id="portrait" name="portrait" type="file" accept="image/jpeg,image/png,image/webp,image/gif"></label>
+<p class="hint" id="photo-hint">A photograph is required for new profiles. JPG, PNG, WebP or GIF, maximum 10 MB.</p>
+<img id="portrait-preview" alt="Selected portrait preview" hidden>
+<div class="actions"><button id="save-profile" type="submit">Save as draft</button><button id="cancel-edit" type="button" class="secondary" hidden>Cancel editing</button></div>
+<p id="form-status" role="status"></p></form></section>
+<section class="panel"><div class="heading"><h2>Existing profiles</h2><button type="button" id="refresh-profiles" class="secondary">Refresh</button></div><p id="list-status" role="status"></p><div id="profile-list" class="profile-list"></div></section>
+</div></main><script src="/assets/js/leadership-admin.js" defer></script></body></html>

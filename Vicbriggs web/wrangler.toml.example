@@ -1,0 +1,6 @@
+# EXAMPLE ONLY. Bind D1 to the Pages project using the Cloudflare dashboard.
+# Do not use this file unchanged.
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "vicbriggs-cms"
+# database_id = "YOUR_D1_DATABASE_ID"

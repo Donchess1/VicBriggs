@@ -37,6 +37,32 @@
         <button id="logout" type="button" class="secondary">Sign out</button>
       </section>
 
+      <section class="panel" id="projects-management">
+        <h2>Project register</h2>
+        <p class="hint">Add project records using the four fields shown in the company project schedule. New records are saved as drafts until published.</p>
+        <form id="project-form">
+          <input type="hidden" name="id">
+          <label>Description of activities
+            <textarea name="description" maxlength="5000" rows="4" required placeholder="Enter the detailed description of activities"></textarea>
+          </label>
+          <div class="fields">
+            <label>Client
+              <input name="client" maxlength="250" required placeholder="Client / organisation">
+            </label>
+            <label>Period of execution
+              <input name="period" maxlength="120" required placeholder="e.g. Completed 2022 / Ongoing">
+            </label>
+          </div>
+          <div class="actions">
+            <button id="project-save" type="submit">Save project</button>
+            <button id="project-cancel" type="button" class="secondary" hidden>Cancel edit</button>
+          </div>
+          <p id="project-status" role="status"></p>
+        </form>
+        <div class="heading"><h3>Saved projects</h3><button id="projects-refresh" type="button" class="secondary">Refresh</button></div>
+        <div id="projects-admin-list"></div>
+      </section>
+
       <section class="panel">
         <h2>Add new media</h2>
         <form id="upload-form">
@@ -96,6 +122,6 @@
     </div>
   </main>
 
-  <script src="/assets/js/admin.js"></script>
+  <script src="/assets/js/admin.js"></script>\n  <script src="/assets/js/admin-projects.js"></script>
 </body>
 </html>

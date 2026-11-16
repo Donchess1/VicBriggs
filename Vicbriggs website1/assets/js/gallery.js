@@ -154,20 +154,19 @@
             image.removeAttribute("src");
             image.alt = "Preview unavailable";
         };
-
         const caption = document.createElement("span");
         caption.className = "gallery-caption";
         caption.textContent = item.title || "Untitled media";
 
-        const category = document.createElement("small");
+        // const category = document.createElement("small");
 
-        category.textContent =
-            (item.category || "General") +
-            (item.type === "video"
-                ? " • ▶ Watch video"
-                : "");
+        // category.textContent =
+        //     (item.category || "General") +
+        //     (item.type === "video"
+        //         ? " • ▶ Watch video"
+        //         : "");
 
-        caption.appendChild(category);
+        // caption.appendChild(category);
 
         button.append(image, caption);
 

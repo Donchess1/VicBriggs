@@ -1,0 +1,24 @@
+/* Our People page */
+.people-hero {
+  background-image: linear-gradient(100deg,rgba(7,26,57,.96),rgba(7,26,57,.62)),url("../images/team.jpg");
+}
+.people-intro {
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:60px;
+  align-items:start;
+}
+.people-intro h2 {
+  font-size:clamp(2rem,3.4vw,2.8rem);
+  margin:12px 0;
+}
+.people-copy p {
+  color:var(--muted);
+  margin:0 0 16px;
+}
+@media(max-width:900px) {
+  .people-intro { gap:30px; }
+}
+@media(max-width:650px) {
+  .people-intro { grid-template-columns:1fr; gap:12px; }
+}

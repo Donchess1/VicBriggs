@@ -1,0 +1,16 @@
+/* Board & Management: isolated from existing gallery and admin styles. */
+.leadership-hero { background:linear-gradient(115deg,rgba(7,26,57,.97),rgba(16,46,91,.88)),url('../images/leadership.jpg') center/cover; }
+.leadership-hero p { max-width:720px; }
+.leadership-section .section-heading { max-width:760px; }
+.leadership-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; }
+.leader-card { background:#fff; border:1px solid var(--line,#e1e7ef); border-radius:12px; overflow:hidden; box-shadow:0 8px 26px rgba(7,26,57,.07); transition:transform .2s,box-shadow .2s; }
+.leader-card:hover { transform:translateY(-4px); box-shadow:0 16px 36px rgba(7,26,57,.13); }
+.leader-photo { aspect-ratio:4/5; width:100%; object-fit:cover; object-position:center 25%; background:#e9eef5; }
+.leader-photo-placeholder { aspect-ratio:4/5; background:linear-gradient(140deg,#e9eef5,#d9e2ee); display:grid; place-items:center; color:#74869d; font-size:4rem; }
+.leader-info { padding:24px 22px 26px; text-align:center; border-top:4px solid var(--gold,#f0b941); }
+.leader-name { font-size:1.18rem; margin:0 0 7px; color:var(--navy,#071a39); overflow-wrap:anywhere; }
+.leader-role { color:#9a6a11; font-weight:700; font-size:.88rem; margin:0; }
+.leader-bio { color:var(--muted,#65748a); font-size:.9rem; margin:14px 0 0; white-space:pre-line; overflow-wrap:anywhere; }
+.leadership-empty { padding:34px; border:1px dashed #c9d3e0; border-radius:10px; color:var(--muted,#65748a); background:#fff; }
+@media(max-width:850px) { .leadership-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; } }
+@media(max-width:560px) { .leadership-grid { grid-template-columns:1fr; max-width:410px; margin:0 auto; } }

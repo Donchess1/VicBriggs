@@ -115,13 +115,6 @@
       caption.className = "gallery-caption";
       caption.textContent = item.title || "Vicbriggs project media";
 
-      const category = document.createElement("small");
-      const categoryLabel = item.category || serviceName;
-      category.textContent = item.type === "video"
-        ? `${categoryLabel} • ▶ Watch video`
-        : categoryLabel;
-      caption.appendChild(category);
-
       button.append(image, caption);
       button.addEventListener("click", () => showMedia(item));
       fragment.appendChild(button);
