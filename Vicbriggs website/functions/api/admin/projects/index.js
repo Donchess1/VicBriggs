@@ -12,7 +12,7 @@ export async function onRequestGet(c) {
     const result = await db(c.env).prepare(
       `SELECT id, serial_number, description, client, period, status, created_at, updated_at
        FROM projects WHERE deleted_at IS NULL
-       ORDER BY serial_number DESC, id DESC`
+       ORDER BY CAST(serial_number AS INTEGER) ASC, id ASC`
     ).all();
     return json({ items: result.results });
   } catch (error) {

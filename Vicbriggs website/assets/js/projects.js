@@ -215,7 +215,9 @@
         throw new Error("Invalid project register response");
       }
 
-      allProjects = data.items;
+      allProjects = [...data.items].sort(
+        (a, b) => Number(a.serial_number) - Number(b.serial_number)
+      );
       currentPage = 1;
 
       if (!allProjects.length) {
