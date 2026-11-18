@@ -39,7 +39,7 @@
 
       <section class="panel" id="projects-management">
         <h2>Project register</h2>
-        <p class="hint">Add project records using the four fields shown in the company project schedule. New records are saved as drafts until published.</p>
+        <p class="hint">Add a project description, client, execution month and year, and execution status. New records are saved as drafts until published.</p>
         <form id="project-form">
           <input type="hidden" name="id">
           <label>Description of activities
@@ -49,8 +49,26 @@
             <label>Client
               <input name="client" maxlength="250" required placeholder="Client / organisation">
             </label>
-            <label>Period of execution
-              <input name="period" maxlength="120" required placeholder="e.g. Completed 2022 / Ongoing">
+            <label>Month
+              <select name="month">
+                <option value="">Select month</option>
+                <option value="1">Jan</option><option value="2">Feb</option>
+                <option value="3">Mar</option><option value="4">Apr</option>
+                <option value="5">May</option><option value="6">Jun</option>
+                <option value="7">Jul</option><option value="8">Aug</option>
+                <option value="9">Sep</option><option value="10">Oct</option>
+                <option value="11">Nov</option><option value="12">Dec</option>
+              </select>
+            </label>
+            <label>Year
+              <input name="year" type="number" min="1900" max="2200" step="1" placeholder="e.g. 2019">
+            </label>
+            <label>Project execution status
+              <select name="execution_status">
+                <option value="">Select status</option>
+                <option value="Completed">Completed</option>
+                <option value="In Progress">In Progress</option>
+              </select>
             </label>
           </div>
           <div class="actions">

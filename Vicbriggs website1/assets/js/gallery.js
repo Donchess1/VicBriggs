@@ -92,6 +92,7 @@
             "Fabrication",
             "Mechanical",
             "Marine",
+            "Equipment",
             "Video"
         ];
 

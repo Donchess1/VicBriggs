@@ -46,6 +46,7 @@ async function init() {
     document.querySelector("#editor").hidden = false;
     try { await load(); }
     catch (error) { bulkStatus.textContent = `Could not load media library: ${error.message}`; }
+    document.dispatchEvent(new Event("admin-ready"));
   } catch {
     document.querySelector("#login-panel").hidden = false;
     document.querySelector("#editor").hidden = true;

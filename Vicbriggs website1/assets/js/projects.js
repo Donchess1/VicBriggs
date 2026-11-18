@@ -78,25 +78,25 @@
     return td;
   }
 
-  function renderDesktopProject(item) {
-    const tr = document.createElement("tr");
+  function renderDesktopProject(item, serialNumber) {
+  const tr = document.createElement("tr");
 
-    tr.append(
-      cell(item.serial_number),
-      cell(item.description),
-      cell(item.client),
-      cell(item.period)
-    );
+  tr.append(
+    cell(serialNumber),
+    cell(item.description),
+    cell(item.client),
+    cell(item.period)
+  );
 
-    tbody.appendChild(tr);
-  }
+  tbody.appendChild(tr);
+}
 
-  function renderMobileProject(item) {
+  function renderMobileProject(item, serialNumber) {
     const card = document.createElement("article");
     card.className = "project-mobile-card";
 
     const heading = document.createElement("h3");
-    heading.textContent = `Project ${item.serial_number}`;
+    heading.textContent = `Project ${serialNumber}`;
     card.appendChild(heading);
 
     const fields = [
@@ -161,10 +161,11 @@
     tbody.replaceChildren();
     mobile.replaceChildren();
 
-    for (const item of currentProjects) {
-      renderDesktopProject(item);
-      renderMobileProject(item);
-    }
+    currentProjects.forEach((item, index) => {
+      const serialNumber = startIndex + index + 1;
+      renderDesktopProject(item, serialNumber);
+      renderMobileProject(item, serialNumber);
+    });
 
     renderPageNumbers(totalPages);
 
